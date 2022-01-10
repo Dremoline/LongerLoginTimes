@@ -1,0 +1,104 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath 'org.spongepowered:mixingradle:0.7.+'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
+apply plugin: 'org.spongepowered.mixin'
+
+version = '1.0.0-mc1.18'
+group = 'com.dremoline.longerlogintimes' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'longerlogintimes'
+
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+
+minecraft {
+    mappings channel: 'official', version: '1.18.1'
+
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            arg '-mixin.config=mixins.longerlogintimes.json'
+
+            mods {
+                longerlogintimes {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            arg '-mixin.config=mixins.longerlogintimes.json'
+
+            mods {
+                longerlogintimes {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            args '--mod', 'longerlogintimes', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            arg '-mixin.config=mixins.longerlogintimes.json'
+
+            mods {
+                longerlogintimes {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven {
+        url "https://www.cursemaven.com"
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.18.1-39.0.17'
+
+    // Config Lib
+    implementation fg.deobf("curse.maven:supermartijn642s-config-lib-438332:3542143")
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
+}
+
+mixin {
+    // MixinGradle Settings
+    add sourceSets.main, 'mixins.longerlogintimes.refmap.json'
+    config 'mixins.longerlogintimes.json'
+
+    debug.verbose = true
+    debug.export = true
+}
+
+
+

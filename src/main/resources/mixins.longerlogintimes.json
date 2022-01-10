@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "mixins.longerlogintimes.refmap.json",
+  "package": "com.dremoline.longerlogintimes.mixin",
+  "mixins": [
+    "ServerLoginPacketListenerImplMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
