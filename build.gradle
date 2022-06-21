@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.0.0-mc1.18'
+version = '1.0.0-forge-mc1.19'
 group = 'com.dremoline.longerlogintimes' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'longerlogintimes'
 
@@ -24,7 +24,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 minecraft {
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'official', version: '1.19'
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -83,10 +83,10 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.17'
+    minecraft 'net.minecraftforge:forge:1.19-41.0.45'
 
     // Config Lib
-    implementation fg.deobf("curse.maven:supermartijn642s-config-lib-438332:3542143")
+    implementation fg.deobf("curse.maven:supermartijn642s-config-lib-438332:3840240")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
 }

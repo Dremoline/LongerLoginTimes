@@ -1,6 +1,7 @@
 package com.dremoline.longerlogintimes;
 
-import com.supermartijn642.configlib.ModConfigBuilder;
+import com.supermartijn642.configlib.api.ConfigBuilders;
+import com.supermartijn642.configlib.api.IConfigBuilder;
 
 import java.util.function.Supplier;
 
@@ -12,7 +13,7 @@ public class LongerLoginTimesConfig {
     public static final Supplier<Integer> loginTimeout;
 
     static {
-        ModConfigBuilder builder = new ModConfigBuilder("longerlogintimes");
+        IConfigBuilder builder = ConfigBuilders.newTomlConfig("longerlogintimes", null, false);
 
         loginTimeout = builder.comment("How long it takes to get a timeout in ticks (20 ticks is 1 second).").define("loginTimeout", 3600, 20, 50000);
 

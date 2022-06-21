@@ -2,7 +2,6 @@ package com.dremoline.longerlogintimes.mixin;
 
 import com.dremoline.longerlogintimes.LongerLoginTimesConfig;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.network.ServerLoginPacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,7 +23,7 @@ public class ServerLoginPacketListenerImplMixin {
     private void tick(CallbackInfo info) {
         if (this.tick > LongerLoginTimesConfig.loginTimeout.get()) {
             ServerLoginPacketListenerImpl underlying = ((ServerLoginPacketListenerImpl) (Object) this);
-            underlying.disconnect(new TranslatableComponent("multiplayer.disconnect.slow_login"));
+            underlying.disconnect(Component.translatable("multiplayer.disconnect.slow_login"));
         }
     }
 
